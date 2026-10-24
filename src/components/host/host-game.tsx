@@ -20,7 +20,7 @@ import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { QRCodeSVG } from "qrcode.react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { toast } from "sonner";
 import { Logo } from "@/components/brand/logo";
 import { FloatingShapes, ShapeIcon, answerStyle } from "@/components/brand/shapes";
@@ -188,12 +188,11 @@ export function HostGame({ sessionId, quizId }: { sessionId: string; quizId: str
       </header>
 
       <main className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col px-4 pb-28 sm:px-6">
-        <AnimatePresence mode="wait">
-          <motion.div
+        {/* Enter-only transition: the next screen never waits for the previous one to leave. */}
+        <motion.div
             key={`${s.state}-${s.currentIndex}`}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25 }}
             className="flex flex-1 flex-col"
           >
@@ -213,7 +212,6 @@ export function HostGame({ sessionId, quizId }: { sessionId: string; quizId: str
               </div>
             )}
           </motion.div>
-        </AnimatePresence>
       </main>
 
       {primary && !terminal && (
@@ -291,8 +289,11 @@ function primaryAction(view: GameView): { action: string; label: string; icon: R
 }
 
 function HostLobby({ view, game, act }: { view: GameView; game: GameHook; act: (b: Record<string, unknown>) => Promise<void> }) {
-  const [origin, setOrigin] = useState("");
-  useEffect(() => setOrigin(window.location.origin), []);
+  const origin = useSyncExternalStore(
+    () => () => undefined,
+    () => window.location.origin,
+    () => "",
+  );
   const pin = view.session.pin ?? "";
   const joinUrl = `${origin}/join?pin=${pin}`;
   const teams = view.session.teamsEnabled ? view.teams.slice().sort((a, b) => a.position - b.position) : [];
@@ -675,7 +676,7 @@ function HostFinished({ view, quizId }: { view: GameView; quizId: string | null 
   const graded = Math.max(1, view.session.gradedQuestions);
   const podium = view.session.teamsEnabled && view.teams.length
     ? view.teams.map((t) => ({ id: t.id, name: t.name, score: t.score, detail: `${t.memberCount} igr.` }))
-    : view.players.map((p) => ({ id: p.id, name: p.nickname, score: p.score, detail: `${p.correctCount} točnih` }));
+    : view.players.map((p) => ({ id: p.id, name: p.nickname, score: p.score, detail: `${p.correctCount} ${plural(p.correctCount, "točan", "točna", "točnih")}` }));
 
   return (
     <div className="flex-1 space-y-10 pt-4">

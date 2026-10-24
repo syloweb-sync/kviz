@@ -29,7 +29,6 @@ export function RevealView({
   const c = question.config;
   const big = size === "lg";
   const dist = stats?.distribution;
-  const total = Math.max(1, stats?.responseCount ?? 0);
 
   switch (c.type) {
     case "single_choice":

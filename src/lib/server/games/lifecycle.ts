@@ -177,12 +177,13 @@ export async function finalizeCurrentQuestion(record: SessionRecord): Promise<vo
   const answers = (await answersFor(record.row.id, index)).filter((a) => nicknames.has(a.player_id));
   const stats = buildQuestionStats(question, toGradedAnswers(answers, nicknames), record.row.seed);
 
+  // Before the first question everyone is tied, so there is no meaningful "previous rank".
   const { error } = await getAdminSupabase().rpc("finalize_question", {
     p_session_id: record.row.id,
     p_question_index: index,
     p_question_key: question.id,
     p_stats: stats as unknown as NonNullable<Json>,
-    p_previous_ranks: previousRanks as unknown as NonNullable<Json>,
+    p_previous_ranks: (index === 0 ? [] : previousRanks) as unknown as NonNullable<Json>,
   });
   if (error) throw error;
 }

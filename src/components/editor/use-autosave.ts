@@ -15,7 +15,9 @@ export function useAutosave(quizId: string, document: QuizDocument, delayMs = 12
   const lastSaved = useRef(json);
   const inFlight = useRef(false);
   const latest = useRef(json);
-  latest.current = json;
+  useEffect(() => {
+    latest.current = json;
+  });
   const [status, setStatus] = useState<SaveStatus>("saved");
   const [error, setError] = useState<string | null>(null);
   const [savedAt, setSavedAt] = useState<number | null>(null);

@@ -26,14 +26,13 @@ import { useGame } from "@/components/game/use-game";
 import { Button, Spinner } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ui/dialog";
 import { ApiClientError, apiFetch } from "@/lib/client/api";
-import { forgetPlayer, loadPlayer, savePlayer, type StoredPlayer } from "@/lib/client/player-session";
+import { forgetPlayer, savePlayer, useStoredPlayer, type StoredPlayer } from "@/lib/client/player-session";
 import { playSound, unlockAudio } from "@/lib/client/sound";
 import type { GameView, SubmitAnswerResult } from "@/lib/game/types";
 import { cn, formatNumber, plural } from "@/lib/utils";
 
 export function PlayerGame({ sessionId }: { sessionId: string }) {
-  const [stored, setStored] = useState<StoredPlayer | null | undefined>(undefined);
-  useEffect(() => setStored(loadPlayer(sessionId)), [sessionId]);
+  const stored = useStoredPlayer(sessionId);
 
   if (stored === undefined) return <FullScreenMessage title="Učitavanje…" spinner />;
   if (stored === null) {
@@ -68,7 +67,7 @@ function FullScreenMessage({ title, text, action, spinner }: { title: string; te
 function PlayerGameInner({ sessionId, player }: { sessionId: string; player: StoredPlayer }) {
   const router = useRouter();
   const game = useGame({ sessionId, token: player.token, role: "player" });
-  const { view, error, connection, refresh, now } = game;
+  const { view, error, connection, refresh } = game;
   const [leaveOpen, setLeaveOpen] = useState(false);
 
   useEffect(() => {
@@ -470,7 +469,7 @@ function Finished({ view }: { view: GameView }) {
             <div className="mt-5 grid grid-cols-2 gap-3">
               <div className="rounded-2xl bg-night-800 p-3">
                 <p className="font-display text-3xl font-extrabold">{me.correctCount}</p>
-                <p className="text-sm font-bold text-ink-subtle">točnih odgovora</p>
+                <p className="text-sm font-bold text-ink-subtle">{plural(me.correctCount, "točan odgovor", "točna odgovora", "točnih odgovora")}</p>
               </div>
               <div className="rounded-2xl bg-night-800 p-3">
                 <p className="font-display text-3xl font-extrabold">{accuracy} %</p>

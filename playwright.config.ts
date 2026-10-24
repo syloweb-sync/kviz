@@ -13,6 +13,8 @@ const port = 3100;
 
 export default defineConfig({
   testDir: "tests/e2e",
+  // Screenshot capture for design review: `QA=1 npx playwright test visual.qa`.
+  testIgnore: process.env.QA ? [] : ["**/*.qa.spec.ts"],
   timeout: 120_000,
   expect: { timeout: 15_000 },
   fullyParallel: false,

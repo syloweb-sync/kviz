@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -184,7 +184,12 @@ export function QuizEditor({
     }
   }
 
-  const practiceUrl = typeof window !== "undefined" ? `${window.location.origin}/practice/${quizId}` : `/practice/${quizId}`;
+  const origin = useSyncExternalStore(
+    () => () => undefined,
+    () => window.location.origin,
+    () => "",
+  );
+  const practiceUrl = `${origin}/practice/${quizId}`;
 
   return (
     <div className="min-h-dvh pb-28">
@@ -223,9 +228,9 @@ export function QuizEditor({
         </div>
       </div>
 
-      <div className="mx-auto grid max-w-7xl gap-6 px-4 pt-6 sm:px-6 lg:grid-cols-[19rem_minmax(0,1fr)]">
+      <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)] gap-6 px-4 pt-6 sm:px-6 lg:grid-cols-[19rem_minmax(0,1fr)]">
         {/* Question list */}
-        <aside aria-label="Popis pitanja" className="lg:sticky lg:top-24 lg:max-h-[calc(100dvh-7rem)] lg:self-start lg:overflow-y-auto lg:pr-1">
+        <aside aria-label="Popis pitanja" className="min-w-0 lg:sticky lg:top-24 lg:max-h-[calc(100dvh-7rem)] lg:self-start lg:overflow-y-auto lg:pr-1">
           <div className="mb-3 flex items-center justify-between">
             <h2 className="font-display text-lg font-bold">Pitanja ({questions.length})</h2>
           </div>

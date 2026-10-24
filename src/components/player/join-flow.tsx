@@ -29,7 +29,6 @@ export function JoinFlow() {
   const [error, setError] = useState<string | null>(params.get("reason") === "expired" ? "Ta igra više nije dostupna. Upiši novi PIN." : null);
   const [busy, setBusy] = useState(false);
 
-  useEffect(() => setNickname(lastNickname()), []);
 
   async function lookup(value: string) {
     setBusy(true);
@@ -42,6 +41,7 @@ export function JoinFlow() {
         return;
       }
       setGame(result);
+      setNickname((current) => current || lastNickname());
       setTeamId(result.teams[0]?.id ?? null);
     } catch (err) {
       setError(err instanceof ApiClientError ? err.message : "Provjera PIN-a nije uspjela.");
@@ -53,7 +53,9 @@ export function JoinFlow() {
   // Auto-check a PIN that came from a QR code / link.
   useEffect(() => {
     const fromUrl = (params.get("pin") ?? "").replace(/\D/g, "");
-    if (fromUrl.length === 6) void lookup(fromUrl);
+    if (fromUrl.length !== 6) return;
+    const timer = window.setTimeout(() => void lookup(fromUrl), 0);
+    return () => window.clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

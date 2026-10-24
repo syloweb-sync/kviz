@@ -1,5 +1,7 @@
 "use client";
 
+import { useMemo, useSyncExternalStore } from "react";
+
 /** Per-game player credentials, kept on this device so a reload or reconnect resumes the game. */
 export interface StoredPlayer {
   playerId: string;
@@ -56,4 +58,42 @@ export function rememberNickname(nickname: string) {
   } catch {
     // ignore
   }
+}
+
+const SERVER_SNAPSHOT = "__server__";
+
+function readRaw(sessionId: string): string | null {
+  try {
+    const raw = localStorage.getItem(key(sessionId));
+    if (raw) return raw;
+  } catch {
+    // ignore
+  }
+  const fromMemory = memory.get(sessionId);
+  return fromMemory ? JSON.stringify(fromMemory) : null;
+}
+
+/**
+ * Reads the stored player for a game. Returns `undefined` during server rendering (unknown),
+ * `null` when this device has not joined the game.
+ */
+export function useStoredPlayer(sessionId: string): StoredPlayer | null | undefined {
+  const raw = useSyncExternalStore(
+    (onChange) => {
+      window.addEventListener("storage", onChange);
+      return () => window.removeEventListener("storage", onChange);
+    },
+    () => readRaw(sessionId),
+    () => SERVER_SNAPSHOT,
+  );
+  return useMemo(() => {
+    if (raw === SERVER_SNAPSHOT) return undefined;
+    if (!raw) return null;
+    try {
+      const parsed = JSON.parse(raw) as StoredPlayer;
+      return typeof parsed?.token === "string" ? parsed : null;
+    } catch {
+      return null;
+    }
+  }, [raw]);
 }

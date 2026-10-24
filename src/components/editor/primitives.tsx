@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
+import { useId, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
@@ -17,12 +17,13 @@ export function NumberInput({
   allowNull?: boolean;
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "onChange">) {
   const [text, setText] = useState(value === null ? "" : String(value));
-  useEffect(() => {
+  const [synced, setSynced] = useState(value);
+  // Resync the draft text when the value changes from outside (e.g. the slider).
+  if (synced !== value) {
+    setSynced(value);
     const parsed = Number(text.replace(",", "."));
     if (value === null ? text.trim() !== "" : parsed !== value) setText(value === null ? "" : String(value));
-    // Only resync when the external value changes.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  }
   return (
     <Input
       inputMode="decimal"

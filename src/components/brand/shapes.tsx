@@ -16,7 +16,9 @@ export const ANSWER_STYLES = [
 export type AnswerShape = (typeof ANSWER_STYLES)[number]["shape"];
 
 export function answerStyle(index: number) {
-  return ANSWER_STYLES[index % ANSWER_STYLES.length]!;
+  const n = ANSWER_STYLES.length;
+  const safe = Number.isFinite(index) ? Math.trunc(index) : 0;
+  return ANSWER_STYLES[((safe % n) + n) % n]!;
 }
 
 const PATHS: Record<AnswerShape, string> = {

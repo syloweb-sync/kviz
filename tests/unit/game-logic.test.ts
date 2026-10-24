@@ -297,3 +297,10 @@ describe("question statistics", () => {
     expect(stats.distribution.average).toBeCloseTo(915.5);
   });
 });
+
+describe("answer palette", () => {
+  it("maps any integer (including negative) to a style", async () => {
+    const { answerStyle } = await import("@/components/brand/shapes");
+    for (const i of [-7, -1, 0, 5, 6, 1e9, Number.NaN]) expect(answerStyle(i)).toBeDefined();
+  });
+});

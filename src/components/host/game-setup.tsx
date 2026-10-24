@@ -5,7 +5,7 @@ import { ArrowLeft, Dumbbell, Hand, Play, Trophy, Users } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 import type { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -32,7 +32,7 @@ export function GameSetup({ quizId, title, questionCount, issues }: { quizId: st
     resolver: zodResolver(gameSettingsSchema),
     defaultValues: DEFAULT_GAME_SETTINGS,
   });
-  const teamNames = form.watch("teamNames") ?? [];
+  const teamNames = useWatch({ control: form.control, name: "teamNames" }) ?? [];
 
   const start = form.handleSubmit(async (settings) => {
     setStarting(true);

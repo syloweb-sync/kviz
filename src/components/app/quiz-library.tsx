@@ -169,7 +169,7 @@ function CoverArt({ quiz }: { quiz: QuizSummary }) {
     // eslint-disable-next-line @next/next/no-img-element
     return <img src={url} alt="" className="size-full object-cover" loading="lazy" decoding="async" />;
   }
-  const shapes = [0, 1, 2].map((i) => answerStyle((seed >> (i * 3)) % 6));
+  const shapes = [0, 1, 2].map((i) => answerStyle((seed >>> (i * 3)) % 6));
   return (
     <div className={cn("relative size-full overflow-hidden", ["bg-violet-600", "bg-night-600", "bg-cyan-500/40", "bg-coral-500/50"][seed % 4])}>
       <div className="dot-grid absolute inset-0 opacity-50" />
