@@ -56,6 +56,8 @@ export interface GameView {
     quizTitle: string;
     currentIndex: number;
     totalQuestions: number;
+    /** Questions that have a correct answer (polls and rankings excluded) — for accuracy. */
+    gradedQuestions: number;
     /** Epoch ms. Answers are accepted from `questionStartsAt` until `deadline`. */
     questionStartsAt: number | null;
     deadline: number | null;

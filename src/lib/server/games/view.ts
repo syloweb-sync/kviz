@@ -2,6 +2,7 @@ import "server-only";
 
 import { toPublicAnswer, type InternalAnswer } from "@/lib/domain/answers";
 import { toPublicQuestion, toRevealedAnswer } from "@/lib/domain/public-view";
+import { isScoredType } from "@/lib/domain/question-defaults";
 import { rankPlayers, rankTeams } from "@/lib/domain/ranking";
 import type { QuestionStats } from "@/lib/domain/results";
 import type { EvaluationStatus } from "@/lib/domain/scoring";
@@ -171,6 +172,7 @@ export async function buildGameView(
       quizTitle: row.quiz_title,
       currentIndex: index,
       totalQuestions: record.order.length,
+      gradedQuestions: record.snapshot.questions.filter((q) => isScoredType(q.type)).length,
       questionStartsAt: ms(row.question_started_at),
       deadline: ms(row.question_deadline),
       pausedRemainingMs: row.paused_remaining_ms,
