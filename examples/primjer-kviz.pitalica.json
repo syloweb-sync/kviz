@@ -1,0 +1,302 @@
+{
+  "format": "pitalica-quiz",
+  "version": 1,
+  "exportedAt": "2026-10-24T00:00:00.000Z",
+  "quiz": {
+    "title": "Primjer: Opće znanje",
+    "description": "Kratki kviz koji pokazuje deset vrsta pitanja. Uvezite ga na nadzornoj ploči.",
+    "coverImage": null,
+    "category": "Opće znanje",
+    "tags": [
+      "primjer"
+    ],
+    "questions": [
+      {
+        "id": "CH5V9kZMN9yJ",
+        "type": "single_choice",
+        "title": "Koji je glavni grad Australije?",
+        "media": null,
+        "timeLimit": 20,
+        "points": "standard",
+        "explanation": "Canberra je postala glavni grad 1913. kao kompromis između Sydneyja i Melbournea.",
+        "feedback": "on_close",
+        "config": {
+          "options": [
+            {
+              "id": "7fi4SrFHdy4f",
+              "text": "Sydney",
+              "media": null
+            },
+            {
+              "id": "i6gWaELHZarv",
+              "text": "Canberra",
+              "media": null
+            },
+            {
+              "id": "zNZSKiWbyeTS",
+              "text": "Melbourne",
+              "media": null
+            },
+            {
+              "id": "9Myrwc6zBZFL",
+              "text": "Perth",
+              "media": null
+            }
+          ],
+          "correctOptionId": "i6gWaELHZarv"
+        }
+      },
+      {
+        "id": "tvCqNHx88vkC",
+        "type": "multi_select",
+        "title": "Koje od ovih životinja su sisavci?",
+        "media": null,
+        "timeLimit": 25,
+        "points": "standard",
+        "explanation": "",
+        "feedback": "on_close",
+        "config": {
+          "options": [
+            {
+              "id": "qTLfGzVYGhXs",
+              "text": "Dupin",
+              "media": null
+            },
+            {
+              "id": "E2SycYU98cbB",
+              "text": "Morski pas",
+              "media": null
+            },
+            {
+              "id": "H4qrPf7A74qe",
+              "text": "Šišmiš",
+              "media": null
+            },
+            {
+              "id": "3sTr9HdTTTEV",
+              "text": "Pingvin",
+              "media": null
+            }
+          ],
+          "correctOptionIds": [
+            "qTLfGzVYGhXs",
+            "H4qrPf7A74qe"
+          ],
+          "partialCredit": true
+        }
+      },
+      {
+        "id": "hBN5Wf89iL2U",
+        "type": "true_false",
+        "title": "Jadransko more je dio Sredozemnog mora.",
+        "media": null,
+        "timeLimit": 10,
+        "points": "standard",
+        "explanation": "",
+        "feedback": "on_close",
+        "config": {
+          "correct": true
+        }
+      },
+      {
+        "id": "p8cbyCKzWkMu",
+        "type": "slider",
+        "title": "Koliko je visok vrh Dinara (Sinjal)?",
+        "media": null,
+        "timeLimit": 30,
+        "points": "standard",
+        "explanation": "Sinjal je visok 1831 metar.",
+        "feedback": "on_close",
+        "config": {
+          "min": 0,
+          "max": 3000,
+          "step": 1,
+          "unit": "m",
+          "target": 1831,
+          "tolerance": 150,
+          "exactMatch": false,
+          "graded": true
+        }
+      },
+      {
+        "id": "WG4HC94LmRuS",
+        "type": "short_answer",
+        "title": "Kako se zove najduža rijeka koja teče kroz Hrvatsku?",
+        "media": null,
+        "timeLimit": 30,
+        "points": "standard",
+        "explanation": "",
+        "feedback": "on_close",
+        "config": {
+          "acceptedAnswers": [
+            "Sava",
+            "rijeka Sava"
+          ],
+          "caseSensitive": false,
+          "accentSensitive": false,
+          "normalizeWhitespace": true,
+          "multiline": false,
+          "maxLength": 40,
+          "manualReview": false
+        }
+      },
+      {
+        "id": "BUYCSE8pojL8",
+        "type": "numeric",
+        "title": "Koliko kostiju ima odrasla osoba?",
+        "media": null,
+        "timeLimit": 30,
+        "points": "standard",
+        "explanation": "",
+        "feedback": "on_close",
+        "config": {
+          "target": 206,
+          "tolerance": 0,
+          "allowDecimals": false,
+          "unit": "",
+          "min": 0,
+          "max": 1000
+        }
+      },
+      {
+        "id": "Wt9LwRCKtiZt",
+        "type": "ordering",
+        "title": "Poredaj izume od najstarijeg prema najnovijem",
+        "media": null,
+        "timeLimit": 40,
+        "points": "standard",
+        "explanation": "",
+        "feedback": "on_close",
+        "config": {
+          "items": [
+            {
+              "id": "5FHjwjYGePq3",
+              "text": "Kotač"
+            },
+            {
+              "id": "X8xpKHXyLkWN",
+              "text": "Tiskarski stroj"
+            },
+            {
+              "id": "X8p3dqWrxhGN",
+              "text": "Parni stroj"
+            },
+            {
+              "id": "FCELCjQGQ65v",
+              "text": "Internet"
+            }
+          ],
+          "partialCredit": true
+        }
+      },
+      {
+        "id": "xGQXkkZKSQVb",
+        "type": "matching",
+        "title": "Spoji državu s glavnim gradom",
+        "media": null,
+        "timeLimit": 45,
+        "points": "standard",
+        "explanation": "",
+        "feedback": "on_close",
+        "config": {
+          "pairs": [
+            {
+              "id": "taiA87Djvzez",
+              "left": "Francuska",
+              "leftMedia": null,
+              "right": "Pariz",
+              "rightMedia": null
+            },
+            {
+              "id": "TFFoJtFFeiaS",
+              "left": "Italija",
+              "leftMedia": null,
+              "right": "Rim",
+              "rightMedia": null
+            },
+            {
+              "id": "PL2pvEku9RpE",
+              "left": "Mađarska",
+              "leftMedia": null,
+              "right": "Budimpešta",
+              "rightMedia": null
+            },
+            {
+              "id": "oSKADQbzhFGC",
+              "left": "Slovenija",
+              "leftMedia": null,
+              "right": "Ljubljana",
+              "rightMedia": null
+            }
+          ],
+          "partialCredit": true
+        }
+      },
+      {
+        "id": "xDVVTqiLmbos",
+        "type": "poll",
+        "title": "Kamo idemo na sljedeći izlet?",
+        "media": null,
+        "timeLimit": 20,
+        "points": "none",
+        "explanation": "",
+        "feedback": "on_close",
+        "config": {
+          "options": [
+            {
+              "id": "MEvJ7RUzQ3ZJ",
+              "text": "More",
+              "media": null
+            },
+            {
+              "id": "hbqi4awgt88V",
+              "text": "Planina",
+              "media": null
+            },
+            {
+              "id": "LD3iED4yNZv4",
+              "text": "Grad",
+              "media": null
+            },
+            {
+              "id": "4QRrwzpeTPQW",
+              "text": "Selo",
+              "media": null
+            }
+          ],
+          "showVoterNames": false
+        }
+      },
+      {
+        "id": "hwUhBCFqnC8k",
+        "type": "ranking",
+        "title": "Poredaj godišnja doba od najdražeg",
+        "media": null,
+        "timeLimit": 40,
+        "points": "none",
+        "explanation": "",
+        "feedback": "on_close",
+        "config": {
+          "options": [
+            {
+              "id": "qzjDyXNsGjab",
+              "text": "Proljeće"
+            },
+            {
+              "id": "R35FQtpv62rM",
+              "text": "Ljeto"
+            },
+            {
+              "id": "sdvGYHny2xmz",
+              "text": "Jesen"
+            },
+            {
+              "id": "kMBtGT9g6mRm",
+              "text": "Zima"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

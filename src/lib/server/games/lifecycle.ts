@@ -249,7 +249,8 @@ export async function reconcile(record: SessionRecord): Promise<SessionRecord> {
 
 /** Closes the question early once every active player has answered (auto-paced modes only). */
 export async function closeIfEveryoneAnswered(record: SessionRecord): Promise<void> {
-  if (manualPacing(record) || record.state !== "question_active") return;
+  // With answer changes allowed, players may revise until the timer ends.
+  if (manualPacing(record) || record.state !== "question_active" || record.settings.allowAnswerChange) return;
   const players = await activePlayers(record.row.id);
   if (players.length === 0) return;
   const ids = new Set(players.map((p) => p.id));

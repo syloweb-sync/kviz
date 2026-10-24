@@ -304,3 +304,12 @@ describe("answer palette", () => {
     for (const i of [-7, -1, 0, 5, 6, 1e9, Number.NaN]) expect(answerStyle(i)).toBeDefined();
   });
 });
+
+describe("example quiz", () => {
+  it("is a valid, playable export", async () => {
+    const { readFileSync } = await import("node:fs");
+    const { quizExportSchema } = await import("@/lib/domain/schema");
+    const parsed = quizExportSchema.parse(JSON.parse(readFileSync("examples/primjer-kviz.pitalica.json", "utf8")));
+    expect(validateQuizForPlay(parsed.quiz)).toEqual([]);
+  });
+});

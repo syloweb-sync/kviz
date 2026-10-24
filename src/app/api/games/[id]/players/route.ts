@@ -14,7 +14,7 @@ const joinSchema = z.object({
 /** Join a game as a guest. Returns the player's secret token (shown only once). */
 export const POST = handler(async (request: Request, ctx: Ctx) => {
   const { id } = await ctx.params;
-  await enforceRateLimit("join", clientIp(request), 30, 60);
+  await enforceRateLimit("join", clientIp(request), 120, 60);
   const input = joinSchema.parse(await readJson(request));
   return json(await joinGame(id, input), { status: 201 });
 });
